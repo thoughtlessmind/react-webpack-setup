@@ -1,8 +1,5 @@
-import "./styles/index.scss";
+import { render } from "react-dom";
+import App from "./components/App";
 
-const testObj = {
-  obj1: "HI",
-  days: 3,
-};
+render(<App />, document.getElementById("root"));
 
-console.log({ ...testObj, newObj: "new item" });
