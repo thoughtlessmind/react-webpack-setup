@@ -1,0 +1,11 @@
+@use 'variables';
+
+body{
+  margin:0;
+  background-color: rgb(42, 63, 148);
+  color: var(--text);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
