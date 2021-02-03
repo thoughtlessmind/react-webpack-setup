@@ -4,3 +4,15 @@ const testObj = {
 };
 
 console.log({ ...testObj, newObj: "new item" });
+
+// import React from 'react'
+
+function Recipes() {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default Recipes
