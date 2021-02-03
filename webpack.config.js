@@ -1,4 +1,9 @@
+const path = require('path');
 const MiniCssExractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+
 let mode = "development";
 let target = "web";
 
@@ -10,28 +15,32 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   mode: mode,
   target: target,
-  output:{
-    assetModuleFilename:"image/[hash][ext][query]"
+  output: {
+    path: path.resolve(__dirname,'dist'),
+    assetModuleFilename: "image/[hash][ext][query]",
   },
   module: {
     rules: [
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         type: "asset",
-        parser:{
-          dataUrlCondition:{
+        parser: {
+          dataUrlCondition: {
             //Change the default maxSize of 8kb for putting the img in inline to 10kb
-            maxSize: 10 * 1024 
-          }
-        }
+            maxSize: 10 * 1024,
+          },
+        },
       },
-      
+
       {
         test: /\.(s[ac]|c)ss$/i,
         use: [
           {
             loader: MiniCssExractPlugin.loader,
-            options: { publicPath: "" },
+            options: {
+              //Support url depended assets in css
+              publicPath: "",
+            },
           },
           "css-loader",
           "postcss-loader",
@@ -48,7 +57,13 @@ module.exports = {
     ],
   },
 
-  plugins: [new MiniCssExractPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new MiniCssExractPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
 
   resolve: {
     extensions: [".js", ".jsx"],
